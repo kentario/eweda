@@ -8,7 +8,7 @@ namespace eweda::token {
 
   enum class Token_Type {
     // Single character
-    LEFT_PAREN, RIGHT_PAREN, LEFT_BRACKET, RIGHT_BRACKENT, LEFT_BRACE, RIGHT_BRACE,
+    LEFT_PAREN, RIGHT_PAREN, LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE,
     COMMA, DOT, SLASH, STAR, SEMICOLON,
 
     // One or two character
@@ -36,11 +36,11 @@ namespace eweda::token {
     const Token_Type type;
     const std::string lexeme;
     const std::optional<Literal> literal {};
-    const int line; // Line number of the program at which the token appears.
+    const size_t line; // Line number of the program at which the token appears.
 
-    Token (const Token_Type type, const std::string lexeme, const std::optional<Literal> literal, const int line);
+    Token (const Token_Type type, const std::string lexeme, const std::optional<Literal> literal, const size_t line);
 
-    Token (const Token_Type type, const std::string lexeme, const int line);
+    Token (const Token_Type type, const std::string lexeme, const size_t line);
   };
 
   std::string to_string (const Literal &literal);

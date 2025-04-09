@@ -46,10 +46,10 @@ namespace eweda::token {
     {Token_Type::END_OF_FILE, "END_OF_FILE"}
   };
 
-  Token::Token (const Token_Type type, const std::string lexeme, const std::optional<Literal> literal, const int line) :
+  Token::Token (const Token_Type type, const std::string lexeme, const std::optional<Literal> literal, const size_t line) :
     type {type}, lexeme {lexeme}, literal {literal}, line {line} {}
 
-  Token::Token (const Token_Type type, const std::string lexeme, const int line) :
+  Token::Token (const Token_Type type, const std::string lexeme, const size_t line) :
     type {type}, lexeme {lexeme}, line {line} {}
 
   std::string to_string (const Literal &literal) {
