@@ -46,5 +46,5 @@ namespace eweda::token {
   std::string to_string (const Literal &literal);
 
   std::string to_string (const Token &token);
-  
+
 } // namespace eweda::token
