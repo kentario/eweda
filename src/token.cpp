@@ -1,8 +1,6 @@
 #include "token.hpp"
 
 #include <unordered_map>
-#include <map>
-#include <type_traits>
 
 namespace eweda::token {
 
