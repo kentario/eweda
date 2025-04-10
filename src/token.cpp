@@ -10,7 +10,7 @@ namespace eweda::token {
     {Token_Type::LEFT_PAREN,      "LEFT_PAREN"},
     {Token_Type::RIGHT_PAREN,     "RIGHT_PAREN"},
     {Token_Type::LEFT_BRACKET,    "LEFT_BRACKET"},
-    {Token_Type::RIGHT_BRACKET,   "RIGHT_BRACKENT"},
+    {Token_Type::RIGHT_BRACKET,   "RIGHT_BRACKET"},
     {Token_Type::LEFT_BRACE,      "LEFT_BRACE"},
     {Token_Type::RIGHT_BRACE,     "RIGHT_BRACE"},
     {Token_Type::COMMA,           "COMMA"},
