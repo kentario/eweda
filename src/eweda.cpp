@@ -4,7 +4,9 @@
 #include <vector>
 
 #include "error.hpp"
+#include "ast.hpp"
 #include "lexer.hpp"
+#include "parser.hpp"
 
 using namespace eweda;
 
@@ -30,8 +32,16 @@ int main (int argc, char *argv[]) {
   
   for (const auto &t : tokens) {
     std::cout << token::to_string(t) << '\n';
+  } std::cout << '\n';
+
+  if (error::had_error) {
+    return EXIT_FAILURE;
   }
 
+  parser::Parser parser {tokens};
+  ast::Node_Ptr expr {parser.parse()};
+  std::cout << ast::to_string(expr) << '\n';
+  
   if (error::had_error) {
     return EXIT_FAILURE;
   }
