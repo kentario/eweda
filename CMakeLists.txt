@@ -9,4 +9,5 @@ add_executable(eweda
 	src/token.cpp
 	src/lexer.cpp
 	src/error.cpp
+	src/ast.cpp
 )
