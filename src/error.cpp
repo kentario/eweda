@@ -13,7 +13,7 @@ namespace eweda::error {
   }
 
   void lexer_error (const size_t line, const std::string &message) {
-    std::cerr << "lexer error at ["  << line << "]: " << message << '\n';
+    std::cerr << "lexer error at line "  << line << ": " << message << '\n';
     had_error = true;
   }
 

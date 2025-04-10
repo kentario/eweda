@@ -64,6 +64,8 @@ namespace eweda::lexer {
     case '}': add_token(Token_Type::RIGHT_BRACE); break;
     case ',': add_token(Token_Type::COMMA); break;
     case '.': add_token(Token_Type::DOT); break;
+    case '+': add_token(Token_Type::PLUS); break;
+    case '-': add_token(Token_Type::MINUS); break;
     case '*': add_token(Token_Type::STAR); break;
     case ';': add_token(Token_Type::SEMICOLON); break;
       // 1 or 2 character
@@ -89,6 +91,7 @@ namespace eweda::lexer {
       } else if (std::isdigit(c)) {
 	number_literal();
       } else {
+	std::cout << c;
 	error::lexer_error(line, "unexpected character `" + std::string(c, 1) + "`");
       }
     }
@@ -126,7 +129,7 @@ namespace eweda::lexer {
   }
   
   void Lexer::number_literal () {
-    while (peek() && std::isdigit(consume()));
+    while (std::isdigit(peek())) consume();
 
     // Floating point literal
     if (peek() == '.' && std::isdigit(peek(1))) {
