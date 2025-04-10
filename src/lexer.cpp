@@ -92,7 +92,7 @@ namespace eweda::lexer {
 	number_literal();
       } else {
 	std::cout << c;
-	error::lexer_error(line, "unexpected character `" + std::string(c, 1) + "`");
+	error::lexer_error(line, "unexpected character `" + std::string {c} + "`");
       }
     }
   }
