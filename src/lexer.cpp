@@ -133,7 +133,8 @@ namespace eweda::lexer {
 
     // Floating point literal
     if (peek() == '.' && std::isdigit(peek(1))) {
-      while (peek() && std::isdigit(consume()));
+      // Consume the `.` first, then the rest of the digits.
+      do consume(); while (std::isdigit(peek()));
 
       add_token(Token_Type::FLOAT_LITERAL, std::stod(src.substr(start)));
     } else {
