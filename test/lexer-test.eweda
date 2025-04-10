@@ -1,0 +1,21 @@
+// * has higher precedence than +.
+print 2 + 3 * 4; // expect: 14
+
+// * has higher precedence than -.
+print 20 - 3 * 4; // expect: 8
+
+// / has higher precedence than +.
+print 2 + 6 / 3; // expect: 4
+
+// / has higher precedence than -.
+print 2 - 6 / 3; // expect: 0
+
+this is true
+let
+return 5*3-5.232;
+
+[let c]while (let b = (let a = c++) < 10) {
+    print b;
+}[c = 3];
+
+print "Hello World!";
