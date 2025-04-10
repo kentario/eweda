@@ -5,7 +5,7 @@
 
 namespace eweda::error {
 
-  bool had_error {false};
+  extern bool had_error;
   
   void error (const std::string &message);
 
