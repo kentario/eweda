@@ -9,9 +9,11 @@ namespace eweda::token {
   enum class Token_Type {
     // Single character
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE,
-    COMMA, DOT, PLUS, MINUS, STAR, SLASH, SEMICOLON,
+    COMMA, DOT, STAR, SLASH, SEMICOLON,
 
     // One or two character
+    PLUS, PLUS_PLUS,
+    MINUS, MINUS_MINUS,
     BANG, BANG_EQUAL,
     EQUAL, EQUAL_EQUAL,
     GREATER, GREATER_EQUAL,

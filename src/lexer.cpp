@@ -64,11 +64,11 @@ namespace eweda::lexer {
     case '}': add_token(Token_Type::RIGHT_BRACE); break;
     case ',': add_token(Token_Type::COMMA); break;
     case '.': add_token(Token_Type::DOT); break;
-    case '+': add_token(Token_Type::PLUS); break;
-    case '-': add_token(Token_Type::MINUS); break;
     case '*': add_token(Token_Type::STAR); break;
     case ';': add_token(Token_Type::SEMICOLON); break;
       // 1 or 2 character
+    case '+': add_token(consume_if('+') ? Token_Type::PLUS_PLUS : Token_Type::PLUS); break;
+    case '-': add_token(consume_if('+') ? Token_Type::MINUS_MINUS : Token_Type::MINUS); break;
     case '!': add_token(consume_if('=') ? Token_Type::BANG_EQUAL : Token_Type::BANG); break;
     case '=': add_token(consume_if('=') ? Token_Type::EQUAL_EQUAL : Token_Type::EQUAL); break;
     case '>': add_token(consume_if('=') ? Token_Type::GREATER_EQUAL : Token_Type::GREATER); break;
