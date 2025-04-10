@@ -4,7 +4,6 @@
 #include <string>
 
 #include "token.hpp"
-#include "error.hpp"
 
 namespace eweda::lexer {
   
