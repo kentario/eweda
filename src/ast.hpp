@@ -44,5 +44,5 @@ namespace eweda::ast {
 
   // In reverse Polish notation.
   std::string to_string (const Node_Ptr &node);
-  
+
 } // namespace eweda::ast
