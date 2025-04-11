@@ -6,6 +6,18 @@
 
 namespace eweda::ast {
 
+  Literal::Literal (const token::Literal &value) :
+    value {value} {}
+    
+  Binary::Binary (Node_Ptr &&left, Node_Ptr &&right, const token::Token &token) :
+    left {std::move(left)}, right {std::move(right)}, token {token} {}
+  
+  Unary::Unary (Node_Ptr &&expr, const token::Token &token) :
+    expr {std::move(expr)}, token {token} {}
+    
+  Group::Group (Node_Ptr &&expr) :
+    expr {std::move(expr)} {}
+
   struct To_String_Visitor {
     std::string operator() (const Literal &literal) {return token::to_string(literal.value);}
     std::string operator() (const Binary &expr) {
@@ -22,5 +34,5 @@ namespace eweda::ast {
   std::string to_string (const Node_Ptr &node_ptr) {
     return std::visit(to_string_visitor, *node_ptr);
   }
-  
+
 } // namespace eweda::ast

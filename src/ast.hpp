@@ -17,21 +17,29 @@ namespace eweda::ast {
 
   struct Literal {
     const token::Literal value;
+
+    Literal (const token::Literal &value);
   };
 
   struct Binary {
     const Node_Ptr left;
     const Node_Ptr right;
     const token::Token token;
+
+    Binary (Node_Ptr &&left, Node_Ptr &&right, const token::Token &token);
   };
   
   struct Unary {
     const Node_Ptr expr;
     const token::Token token;
+
+    Unary (Node_Ptr &&expr, const token::Token &token);
   };
   
   struct Group {
     const Node_Ptr expr;
+
+    Group (Node_Ptr &&expr);
   };
 
   // In reverse Polish notation.
