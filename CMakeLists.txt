@@ -10,4 +10,5 @@ add_executable(eweda
 	src/lexer.cpp
 	src/error.cpp
 	src/ast.cpp
+	src/parser.cpp
 )

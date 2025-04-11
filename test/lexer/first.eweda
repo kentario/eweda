@@ -11,6 +11,7 @@ print 2 + 6 / 3; // expect: 4
 print 2 - 6 / 3; // expect: 0
 
 this is true
+this is false
 let
 return 5*3-5.232;
 
