@@ -97,7 +97,7 @@ namespace eweda::lexer {
     }
   }
   
-  void Lexer::identifier () {
+  void Lexer::identifier () { // TODO: handle boolean literals.
     while (std::isalnum(peek()) || peek() == '_') {
       consume();
     }
@@ -106,7 +106,12 @@ namespace eweda::lexer {
     auto itr = reserved.find(src.substr(start, current - start));
     if (itr != reserved.end()) {
       // It is reserved.
-      add_token(itr->second);
+      // Check if it is a boolean literal
+      if (itr->second == Token_Type::BOOLEAN_LITERAL) {
+	add_token(itr->second, src[start] == 't' ? true : false);
+      } else {
+	add_token(itr->second);
+      }
     } else {
       // It is an identifier
       add_token(Token_Type::IDENTIFIER);
