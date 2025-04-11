@@ -38,11 +38,10 @@ namespace eweda::parser {
       // The right hand side.
       ast::Node_Ptr right {parse_comparison()};
 
-      expr = std::make_unique<ast::Node>(ast::Binary {
-	  .left {std::move(expr)},
-	  .right {std::move(right)},
-	  .token {op}
-	});
+      expr = std::make_unique<ast::Node>(std::in_place_type<ast::Binary>,
+					 std::move(expr),  // left
+					 std::move(right), // right
+					 op);              // token
     }
 
     return expr;
@@ -58,11 +57,10 @@ namespace eweda::parser {
       const token::Token op {peek(-1)};
       ast::Node_Ptr right {parse_comparison()};
 
-      expr = std::make_unique<ast::Node>(ast::Binary {
-	  .left {std::move(expr)},
-	  .right {std::move(right)},
-	  .token {op}
-	});
+      expr = std::make_unique<ast::Node>(std::in_place_type<ast::Binary>,
+					 std::move(expr),  // left
+					 std::move(right), // right
+					 op);              // token
     }
 
     return expr;
@@ -78,11 +76,10 @@ namespace eweda::parser {
       const token::Token op {peek(-1)};
       ast::Node_Ptr right {parse_factor()};
 
-      expr = std::make_unique<ast::Node>(ast::Binary {
-	  .left {std::move(expr)},
-	  .right {std::move(right)},
-	  .token {op}
-	});
+      expr = std::make_unique<ast::Node>(std::in_place_type<ast::Binary>,
+					 std::move(expr),  // left
+					 std::move(right), // right
+					 op);              // token
     }
 
     return expr;
@@ -98,11 +95,10 @@ namespace eweda::parser {
       const token::Token op {peek(-1)};
       ast::Node_Ptr right {parse_unary()};
 
-      expr = std::make_unique<ast::Node>(ast::Binary {
-	  .left {std::move(expr)},
-	  .right {std::move(right)},
-	  .token {op}
-	});
+      expr = std::make_unique<ast::Node>(std::in_place_type<ast::Binary>,
+					 std::move(expr),  // left
+					 std::move(right), // right
+					 op);              // token
     }
 
     return expr;
@@ -117,11 +113,11 @@ namespace eweda::parser {
       // Then consume another unary.
       const token::Token op {peek(-1)};
       ast::Node_Ptr right {parse_unary()};
-      
-      return std::make_unique<ast::Node>(ast::Unary {
-	  .expr {std::move(right)},
-	  .token {op}
-	});
+
+      return std::make_unique<ast::Node>(std::in_place_type<ast::Unary>,
+					 std::move(right), // right
+					 op);              // token
+
     }
 
     // If there wasn't a prefix operation, then it must be a unary postfix (or something of higher precedence).
@@ -131,17 +127,17 @@ namespace eweda::parser {
   ast::Node_Ptr Parser::parse_primary () {
     // Literal value.
     // TODO: add support for null literals
-    if (consume_if({Token_Type::STRING_LITERAL, Token_Type::INTEGER_LITERAL, Token_Type::FLOAT_LITERAL, Token_Type::BOOLEAN_LITERAL})) return std::make_unique<ast::Node>(ast::Literal {
-	.value {peek(-1).literal.value()}
-      });
+    if (consume_if({Token_Type::STRING_LITERAL, Token_Type::INTEGER_LITERAL, Token_Type::FLOAT_LITERAL, Token_Type::BOOLEAN_LITERAL}))
+      return std::make_unique<ast::Node>(std::in_place_type<ast::Literal>,
+					 peek(-1).literal.value()); // value
 
     if (consume_if({Token_Type::LEFT_PAREN})) {
       // If there is an open parenthesis, then parse the expression within and expect a close parenthesis after it.
       ast::Node_Ptr expr {parse_expression()};
       consume(Token_Type::RIGHT_PAREN, "Expect `)` after expression.");
-      return std::make_unique<ast::Node>(ast::Group {
-	  .expr {std::move(expr)}
-	});
+      return std::make_unique<ast::Node>(std::in_place_type<ast::Group>,
+					 std::move(expr)); // expr
+
     }
 
     error::parse_error(peek(), "I have no idea what happened here");
