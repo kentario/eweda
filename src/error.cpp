@@ -23,7 +23,7 @@ namespace eweda::error {
     if (token.type == token::Token_Type::END_OF_FILE) {
       std::cerr << "line " << token.line << ": parse error at end: " << message << '\n';
     } else {
-      std::cerr << "line " << token.line << ": parse error: " << message << '\n';
+      std::cerr << "line " << token.line << ": parse error at " << token.lexeme << ": " << message << '\n';
     }
   }
 

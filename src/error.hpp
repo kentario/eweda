@@ -16,7 +16,7 @@ namespace eweda::error {
   void lexer_error (const size_t line, const std::string &message);
 
   // line line: parse error at end: message
-  // line line: parse error: message
+  // line line: parse error at token.lexeme: message
   void parse_error (const token::Token &token, const std::string &message);
     
 } // namespace eweda::error
