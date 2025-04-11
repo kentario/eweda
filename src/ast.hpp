@@ -11,7 +11,7 @@ namespace eweda::ast {
   struct Binary;
   struct Unary;
   struct Group;
-  
+
   using Node = std::variant<Literal, Binary, Unary, Group>;
   using Node_Ptr = std::unique_ptr<Node>;
 
@@ -28,14 +28,14 @@ namespace eweda::ast {
 
     Binary (Node_Ptr &&left, Node_Ptr &&right, const token::Token &token);
   };
-  
+
   struct Unary {
     const Node_Ptr expr;
     const token::Token token;
 
     Unary (Node_Ptr &&expr, const token::Token &token);
   };
-  
+
   struct Group {
     const Node_Ptr expr;
 
