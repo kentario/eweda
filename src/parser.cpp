@@ -126,11 +126,10 @@ namespace eweda::parser {
 
   ast::Node_Ptr Parser::parse_primary () {
     // Literal value.
-    // TODO: add support for null literals
-    if (consume_if({Token_Type::STRING_LITERAL, Token_Type::INTEGER_LITERAL, Token_Type::FLOAT_LITERAL, Token_Type::BOOLEAN_LITERAL}))
+    if (consume_if({Token_Type::STRING_LITERAL, Token_Type::INTEGER_LITERAL, Token_Type::FLOAT_LITERAL, Token_Type::BOOLEAN_LITERAL, Token_Type::NULL_LITERAL}))
       return std::make_unique<ast::Node>(std::in_place_type<ast::Literal>,
-					 peek(-1).literal.value()); // value
-
+					 peek(-1).literal); // value. Since this is an optional, it can have no value, which corresponds to a null literal.
+    
     if (consume_if({Token_Type::LEFT_PAREN})) {
       // If there is an open parenthesis, then parse the expression within and expect a close parenthesis after it.
       ast::Node_Ptr expr {parse_expression()};

@@ -32,17 +32,18 @@ namespace eweda::token {
     END_OF_FILE
   };
 
-  using Literal = std::variant<std::string, int, double, bool>;
+  // No value is the same as a null literal.
+  using Literal = std::optional<std::variant<std::string, int, double, bool>>;
 
   struct Token {
     const Token_Type type;
     const std::string lexeme;
-    const std::optional<Literal> literal {};
+    const Literal literal {};
     const size_t line; // Line number of the program at which the token appears.
 
-    Token (const Token_Type type, const std::string lexeme, const std::optional<Literal> literal, const size_t line);
+    Token (const Token_Type type, const std::string &lexeme, const Literal &literal, const size_t line);
 
-    Token (const Token_Type type, const std::string lexeme, const size_t line);
+    Token (const Token_Type type, const std::string &lexeme, const size_t line);
   };
 
   std::string to_string (const Literal &literal);

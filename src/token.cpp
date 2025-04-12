@@ -49,32 +49,36 @@ namespace eweda::token {
     {Token_Type::END_OF_FILE,     "END_OF_FILE"}
   };
 
-  Token::Token (const Token_Type type, const std::string lexeme, const std::optional<Literal> literal, const size_t line) :
+  Token::Token (const Token_Type type, const std::string &lexeme, const Literal &literal, const size_t line) :
     type {type}, lexeme {lexeme}, literal {literal}, line {line} {}
 
-  Token::Token (const Token_Type type, const std::string lexeme, const size_t line) :
+  Token::Token (const Token_Type type, const std::string &lexeme, const size_t line) :
     type {type}, lexeme {lexeme}, line {line} {}
 
   std::string to_string (const Literal &literal) {
-    switch (literal.index()) {
-    case 0:
-      return std::get<0>(literal);
-    case 1:
-      return std::to_string(std::get<1>(literal));
-    case 2:
-      return std::to_string(std::get<2>(literal));
-    case 3:
-      return std::to_string(std::get<3>(literal));
+    if (literal) {
+      switch (literal->index()) {
+      case 0:
+	return std::get<0>(*literal);
+      case 1:
+	return std::to_string(std::get<1>(*literal));
+      case 2:
+	return std::to_string(std::get<2>(*literal));
+      case 3:
+	return std::to_string(std::get<3>(*literal));
+      default:
+	static_assert(std::variant_size_v<Literal::value_type> == 4, "You messed something up with the literal to string function, and got a value index other then the ones specified.\n");
+	return "";
+      }
+    } else {
+      return "null";
     }
-
-    static_assert(std::variant_size_v<Literal> == 4, "You messed something up with the literal to string function, and got a value index other then the ones specified.\n");
-    return "";
   }
 
   std::string to_string (const Token &token) {
     return "{" + std::to_string(token.line) + ", " + token_to_string.at(token.type) + ", \"" + token.lexeme + "\"" +
-      (token.literal ?
-       (", " + to_string(token.literal.value())) : "")
+      ((token.type == Token_Type::NULL_LITERAL || token.literal) ?
+       (", " + to_string(token.literal)) : "")
       + "}";
   }
 } // namespace eweda::token

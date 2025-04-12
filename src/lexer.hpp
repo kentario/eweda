@@ -26,7 +26,7 @@ namespace eweda::lexer {
     char peek (const size_t offset = 0) const;
 
     void add_token (const token::Token_Type type);
-    void add_token (const token::Token_Type type, const token::Literal &literal);
+    void add_token (const token::Token_Type type, const token::Literal::value_type &literal);
 
     void scan_token ();
     void identifier ();

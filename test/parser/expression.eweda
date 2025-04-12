@@ -1,3 +1,2 @@
-(5 - (3 - 1)) + -1
-// for printing the ast, expect: (((5 ((3 1 -) group) -) group) (1 -) +)
-// for evaluating the ast, expect: 2
+(5 - (3 - 1)) + -1 - null
+// for printing the ast, expect: ((((5 ((3 1 -) group) -) group) (1 -) +) null -)

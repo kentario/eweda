@@ -15,6 +15,7 @@ namespace eweda::lexer {
   const std::unordered_map<std::string_view, Token_Type> reserved {
     {"true",  Token_Type::BOOLEAN_LITERAL},
     {"false", Token_Type::BOOLEAN_LITERAL},
+    {"null",  Token_Type::NULL_LITERAL},
     
     {"break",  Token_Type::BREAK},
     {"else",   Token_Type::ELSE},
@@ -106,10 +107,13 @@ namespace eweda::lexer {
     auto itr = reserved.find(src.substr(start, current - start));
     if (itr != reserved.end()) {
       // It is reserved.
-      // Check if it is a boolean literal
-      if (itr->second == Token_Type::BOOLEAN_LITERAL) {
+      switch (itr->second) {
+      case Token_Type::BOOLEAN_LITERAL:
+	// Boolean literal
 	add_token(itr->second, src[start] == 't' ? true : false);
-      } else {
+	break;
+      default:
+	// Keyword, or null literal which would not have a value.
 	add_token(itr->second);
       }
     } else {
@@ -157,8 +161,8 @@ namespace eweda::lexer {
     tokens.push_back(token::Token {type, src.substr(start, current - start), line});
   }
 
-  void Lexer::add_token (const Token_Type type, const token::Literal &literal) {
-    tokens.push_back(token::Token {type, src.substr(start, current - start), literal, line});
+  void Lexer::add_token (const Token_Type type, const token::Literal::value_type &value) {
+    tokens.push_back(token::Token {type, src.substr(start, current - start), token::Literal {value}, line});
   }
 
   char Lexer::consume () {
